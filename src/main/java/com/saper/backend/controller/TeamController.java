@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/teams")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TeamController {
     @Autowired
     TeamService teamService;

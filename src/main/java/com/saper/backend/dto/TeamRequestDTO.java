@@ -3,10 +3,12 @@ package com.saper.backend.dto;
 public class TeamRequestDTO {
     String  schedule;
     Long box_id;
+    Long professor_id;
 
-    public TeamRequestDTO(String schedule, Long box_id) {
+    public TeamRequestDTO(String schedule, Long box_id, Long professor_id) {
         this.schedule = schedule;
         this.box_id = box_id;
+        this.professor_id = professor_id;
     }
 
     public TeamRequestDTO() {
@@ -26,5 +28,13 @@ public class TeamRequestDTO {
 
     public void setBox_id(Long box_id) {
         this.box_id = box_id;
+    }
+
+    public Long getProfessor_id() {
+        return professor_id;
+    }
+
+    public void setProfessor_id(Long professor_id) {
+        this.professor_id = professor_id;
     }
 }

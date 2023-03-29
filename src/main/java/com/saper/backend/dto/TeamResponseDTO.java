@@ -6,12 +6,14 @@ public class TeamResponseDTO {
     Long id;
     String  schedule;
     Long box_id;
+    Long professor_id;
 
 
-    public TeamResponseDTO(Long id, String schedule, Long box_id) {
+    public TeamResponseDTO(Long id, String schedule, Long box_id, Long professor_id) {
         this.id = id;
         this.schedule = schedule;
         this.box_id = box_id;
+        this.professor_id = professor_id;
     }
 
     public TeamResponseDTO() {
@@ -21,6 +23,7 @@ public class TeamResponseDTO {
         id = team.getId();
         schedule = team.getSchedule();
         box_id = team.getBox().getId();
+        professor_id = team.getProfessor().getId();
     }
 
     public Long getId() {
@@ -45,5 +48,13 @@ public class TeamResponseDTO {
 
     public void setBox_id(Long box_id) {
         this.box_id = box_id;
+    }
+
+    public Long getProfessor_id() {
+        return professor_id;
+    }
+
+    public void setProfessor_id(Long professor_id) {
+        this.professor_id = professor_id;
     }
 }

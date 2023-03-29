@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/boxes")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class BoxController {
 
     @Autowired

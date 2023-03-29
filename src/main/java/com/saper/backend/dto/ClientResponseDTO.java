@@ -1,26 +1,32 @@
 package com.saper.backend.dto;
 
 import com.saper.backend.model.Client;
+import com.saper.backend.model.Role;
+
+import java.util.List;
 
 public class ClientResponseDTO {
     String name;
     String login;
 
     Long student_id;
+    List<Role> roles;
 
     public ClientResponseDTO() {
     }
 
-    public ClientResponseDTO(String name, String login, Long student_id) {
+    public ClientResponseDTO(String name, String login, Long student_id, List<Role> roles) {
         this.name = name;
         this.login = login;
         this.student_id = student_id;
+        this.roles = roles;
     }
 
     public ClientResponseDTO(Client client) {
         this.name = client.getName();
         this.login = client.getLogin();
         this.student_id = client.getId();
+        this.roles = client.getRoles();
     }
 
     public Long getStudent_id() {
@@ -45,5 +51,13 @@ public class ClientResponseDTO {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

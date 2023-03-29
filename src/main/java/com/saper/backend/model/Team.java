@@ -1,6 +1,7 @@
 package com.saper.backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Set;
 
@@ -12,6 +13,10 @@ public class Team {
     Long id;
 
     // Professor responsável
+    @ManyToOne(targetEntity = Box.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "professor_id")
+    @NotNull()
+    Professor professor;
 
     // Alunos matriculados
     @ManyToMany(
@@ -68,5 +73,13 @@ public class Team {
 
     public void setBox(Box box) {
         this.box = box;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
     }
 }
