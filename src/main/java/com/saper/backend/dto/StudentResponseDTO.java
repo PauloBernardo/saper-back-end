@@ -13,11 +13,16 @@ public class StudentResponseDTO {
     boolean paid;
     Long client_id;
 
+    String name;
+    String login;
+
     public StudentResponseDTO(Student student) {
         id = student.getId();
         registration = student.getRegistration();
         paid = student.isPaid();
         client_id = student.getClient().getId();
+        name = student.getClient().getName();
+        login = student.getClient().getLogin();
     }
 
     public StudentResponseDTO() {
@@ -60,5 +65,21 @@ public class StudentResponseDTO {
 
     public void setClient_id(Long client_id) {
         this.client_id = client_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 }

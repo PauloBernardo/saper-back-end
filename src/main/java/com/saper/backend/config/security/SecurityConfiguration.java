@@ -15,6 +15,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.httpBasic();
         http.authorizeHttpRequests()
+                .requestMatchers(HttpMethod.GET, "/files/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/clients").permitAll()
                 .requestMatchers("/my/**").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")

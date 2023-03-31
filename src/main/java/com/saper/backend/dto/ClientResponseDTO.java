@@ -1,6 +1,7 @@
 package com.saper.backend.dto;
 
 import com.saper.backend.model.Client;
+import com.saper.backend.model.FileData;
 import com.saper.backend.model.Role;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 public class ClientResponseDTO {
     String name;
     String login;
+    FileData profileImage;
 
     Long student_id;
     List<Role> roles;
@@ -15,11 +17,12 @@ public class ClientResponseDTO {
     public ClientResponseDTO() {
     }
 
-    public ClientResponseDTO(String name, String login, Long student_id, List<Role> roles) {
+    public ClientResponseDTO(String name, String login, Long student_id, List<Role> roles, FileData profileImage) {
         this.name = name;
         this.login = login;
         this.student_id = student_id;
         this.roles = roles;
+        this.profileImage = profileImage;
     }
 
     public ClientResponseDTO(Client client) {
@@ -27,6 +30,7 @@ public class ClientResponseDTO {
         this.login = client.getLogin();
         this.student_id = client.getId();
         this.roles = client.getRoles();
+        this.profileImage = client.getProfileImage();
     }
 
     public Long getStudent_id() {
@@ -59,5 +63,13 @@ public class ClientResponseDTO {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public FileData getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(FileData profileImage) {
+        this.profileImage = profileImage;
     }
 }

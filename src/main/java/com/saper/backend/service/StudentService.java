@@ -3,10 +3,7 @@ package com.saper.backend.service;
 import com.saper.backend.dto.*;
 import com.saper.backend.enums.RoleNames;
 import com.saper.backend.exception.exceptions.ConflictStoreException;
-import com.saper.backend.model.Client;
-import com.saper.backend.model.Role;
-import com.saper.backend.model.Student;
-import com.saper.backend.model.Team;
+import com.saper.backend.model.*;
 import com.saper.backend.repository.ClientRepository;
 import com.saper.backend.repository.RoleRepository;
 import com.saper.backend.repository.StudentRepository;
@@ -17,17 +14,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.io.IOException;
+import java.util.*;
 
 @Service
 public class StudentService {
 
     @Autowired
     StudentRepository studentRepository;
+
+    @Autowired
+    FileDataService fileDataService;
 
     @Autowired
     ClientRepository clientRepository;
@@ -45,7 +44,7 @@ public class StudentService {
     }
 
 
-    public ResponseEntity<Object> save(StudentRequestDTO studentRequestDTO) {
+    public ResponseEntity<Object> save(StudentRequestDTO studentRequestDTO, MultipartFile file) throws IOException {
 
         ClientRequestDTO clientRequestDTO = new ClientRequestDTO();
         BeanUtils.copyProperties(studentRequestDTO, clientRequestDTO);
@@ -62,10 +61,12 @@ public class StudentService {
 
         clientRepository.save(client);
 
-        Student student = new Student();
+        FileData profileImage = fileDataService.uploadImageToFileSystem(file, client.getId());
+        client.setProfileImage(profileImage);
+        clientRepository.save(client);
 
-        //TODO: Fazer lógica da matatrícula
-        student.setRegistration("20224344535");
+        Student student = new Student();
+        student.setRegistration(String.valueOf(new Date().getTime()));
         student.setPaid(false);
         student.setClient(client);
 

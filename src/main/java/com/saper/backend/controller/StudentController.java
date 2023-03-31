@@ -2,11 +2,14 @@ package com.saper.backend.controller;
 
 import com.saper.backend.dto.StudentRequestDTO;
 import com.saper.backend.dto.StudentUpdateDTO;
+import com.saper.backend.model.Client;
 import com.saper.backend.service.StudentService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/students")
@@ -17,9 +20,8 @@ public class StudentController {
     StudentService studentService;
 
     @PostMapping
-    public ResponseEntity<Object> save(
-            @RequestBody @Valid StudentRequestDTO studentRequestDTO){
-        return studentService.save(studentRequestDTO);
+    public ResponseEntity<Object> save(StudentRequestDTO studentRequestDTO, @RequestParam("file") MultipartFile file) throws IOException {
+        return studentService.save(studentRequestDTO, file);
     }
 
     @GetMapping("/{id}")

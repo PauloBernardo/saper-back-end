@@ -1,6 +1,5 @@
 package com.saper.backend.model;
 
-import com.saper.backend.enums.RoleNames;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -37,6 +36,9 @@ public class Client implements UserDetails {
         joinColumns = @JoinColumn(name = "client_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     List<Role> roles;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    FileData profileImage;
 
     public Client(String name, String login, String password) {
         this.name = name;
@@ -121,5 +123,13 @@ public class Client implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public FileData getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(FileData profileImage) {
+        this.profileImage = profileImage;
     }
 }
