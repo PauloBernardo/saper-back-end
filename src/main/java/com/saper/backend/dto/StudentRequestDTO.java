@@ -21,14 +21,18 @@ public class StudentRequestDTO implements Serializable {
     @NotBlank(message = "Password é obrigatório")
     String password;
 
-    @NotBlank(message = "confirmação de senha obrigatória")
+    @NotBlank(message = "Confirmação de senha obrigatória")
     String repeated_password;
 
-    public StudentRequestDTO(String name, String login, String password, String repeated_password) {
+    @NotBlank(message = "Verificação de pago é obrigatória")
+    String paid;
+
+    public StudentRequestDTO(String name, String login, String password, String repeated_password, String paid) {
         this.name = name;
         this.login = login;
         this.password = password;
         this.repeated_password = repeated_password;
+        this.paid = paid;
     }
 
     public StudentRequestDTO() {
@@ -64,5 +68,13 @@ public class StudentRequestDTO implements Serializable {
 
     public void setRepeated_password(String repeated_password) {
         this.repeated_password = repeated_password;
+    }
+
+    public String getPaid() {
+        return paid;
+    }
+
+    public void setPaid(String paid) {
+        this.paid = paid;
     }
 }

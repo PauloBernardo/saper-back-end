@@ -13,7 +13,7 @@ public class Team {
     Long id;
 
     // Professor responsável
-    @ManyToOne(targetEntity = Box.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = Professor.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "professor_id")
     @NotNull()
     Professor professor;
@@ -36,11 +36,12 @@ public class Team {
     public Team() {
     }
 
-    public Team(Long id, Set<Student> students, String schedule, Box box) {
+    public Team(Long id, Set<Student> students, String schedule, Box box, Professor professor) {
         this.id = id;
         this.students = students;
         this.schedule = schedule;
         this.box = box;
+        this.professor = professor;
     }
 
     public Set<Student> getStudents() {

@@ -67,7 +67,7 @@ public class StudentService {
 
         Student student = new Student();
         student.setRegistration(String.valueOf(new Date().getTime()));
-        student.setPaid(false);
+        student.setPaid(studentRequestDTO.getPaid().equals("true"));
         student.setClient(client);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new StudentResponseDTO(studentRepository.save(student)));
@@ -100,14 +100,26 @@ public class StudentService {
     }
 
 
-    public ResponseEntity<Object> update(Long id, StudentUpdateDTO studentUpdateDTO) {
+    public ResponseEntity<Object> update(Long id, StudentUpdateDTO studentUpdateDTO, MultipartFile file) throws IOException {
         Student student = studentRepository.findById(id)
                 .orElseThrow(()->new NoSuchElementException("student not found"));
 
         student.setPaid(studentUpdateDTO.isPaid());
+        student.getClient().setName(studentUpdateDTO.getName());
+
+        if (file != null) {
+            FileData profileImage = fileDataService.uploadImageToFileSystem(file, student.getClient().getId());
+            student.getClient().setProfileImage(profileImage);
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body(
                 new StudentResponseDTO(studentRepository.save(student))
         );
+    }
+
+    public ResponseEntity<Object> delete(Long id) {
+        Student student = studentRepository.findById(id).orElseThrow();
+        studentRepository.delete(student);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

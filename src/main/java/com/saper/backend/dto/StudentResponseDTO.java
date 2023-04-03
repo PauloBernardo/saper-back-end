@@ -1,6 +1,7 @@
 package com.saper.backend.dto;
 
 import com.saper.backend.model.Client;
+import com.saper.backend.model.FileData;
 import com.saper.backend.model.Student;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -16,6 +17,8 @@ public class StudentResponseDTO {
     String name;
     String login;
 
+    FileData profileImage;
+
     public StudentResponseDTO(Student student) {
         id = student.getId();
         registration = student.getRegistration();
@@ -23,6 +26,7 @@ public class StudentResponseDTO {
         client_id = student.getClient().getId();
         name = student.getClient().getName();
         login = student.getClient().getLogin();
+        profileImage = student.getClient().getProfileImage();
     }
 
     public StudentResponseDTO() {
@@ -81,5 +85,13 @@ public class StudentResponseDTO {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public FileData getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(FileData profileImage) {
+        this.profileImage = profileImage;
     }
 }
