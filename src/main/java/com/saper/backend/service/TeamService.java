@@ -5,8 +5,10 @@ import com.saper.backend.dto.TeamResponseDTO;
 import com.saper.backend.dto.TeamUpdateDTO;
 import com.saper.backend.exception.exceptions.FieldException;
 import com.saper.backend.model.Box;
+import com.saper.backend.model.Professor;
 import com.saper.backend.model.Team;
 import com.saper.backend.repository.BoxRespository;
+import com.saper.backend.repository.ProfessorRepository;
 import com.saper.backend.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,9 +27,12 @@ public class TeamService {
 
     @Autowired
     BoxRespository boxRespository;
+    @Autowired
+    private ProfessorRepository professorRepository;
 
     public ResponseEntity<Object> save(TeamRequestDTO teamRequestDTO) {
         Long box_id = teamRequestDTO.getBox_id();
+        Long professor_id = teamRequestDTO.getProfessor_id();
 
         Optional<Box> boxOptional = boxRespository.findById(box_id);
 
@@ -35,10 +40,18 @@ public class TeamService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Box não encontrado");
         }
 
+        Optional<Professor> professorOptional = professorRepository.findById(professor_id);
+
+        if(professorOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Professor não encontrado");
+        }
+
         Box box = boxOptional.get();
+        Professor professor = professorOptional.get();
 
         Team team = new Team();
         team.setBox(box);
+        team.setProfessor(professor);
         team.setSchedule(teamRequestDTO.getSchedule());
         return ResponseEntity.status(HttpStatus.CREATED).body( new TeamResponseDTO(teamRepository.save(team)));
     }
