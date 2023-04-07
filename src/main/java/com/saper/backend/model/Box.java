@@ -17,6 +17,9 @@ public class Box{
 
     int capacity;
 
+    Double latitude;
+    Double longitude;
+
     String created_by;
 
 
@@ -28,10 +31,12 @@ public class Box{
     public Box() {
     }
 
-    public Box(Long id, String name, int capacity, String created_by, Set<Team> teams) {
+    public Box(Long id, String name, int capacity, String created_by, Set<Team> teams, Double latitude, Double longitude) {
         this.id = id;
         this.name = name;
         this.capacity = capacity;
+        this.longitude = latitude;
+        this.latitude = longitude;
         this.created_by = created_by;
         this.teams = teams;
     }
@@ -74,5 +79,21 @@ public class Box{
 
     public void setCreated_by(String created_by) {
         this.created_by = created_by;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }

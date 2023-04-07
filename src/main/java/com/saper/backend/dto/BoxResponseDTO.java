@@ -7,29 +7,39 @@ import java.util.stream.Collectors;
 
 public class BoxResponseDTO {
 
+    Long id;
     String name;
 
     int capacity;
+
+    Double latitude;
+    Double longitude;
 
     String created_by;
 
     Set<Long> teams;
 
-    public BoxResponseDTO(String name, int capacity, String created_by, Set<Long> teams) {
+    public BoxResponseDTO(Long id, String name, int capacity, String created_by, Set<Long> teams, Double latitude, Double longitude) {
+        this.id = id;
         this.name = name;
         this.capacity = capacity;
         this.created_by = created_by;
         this.teams = teams;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public BoxResponseDTO() {
     }
 
     public BoxResponseDTO(Box box) {
+        id = box.getId();
         name = box.getName();
         capacity = box.getCapacity();
         created_by = box.getCreated_by();
         teams = box.getTeams().stream().map(team -> team.getId()).collect(Collectors.toSet());
+        latitude = box.getLatitude();
+        longitude = box.getLongitude();
     }
 
     public Set<Long> getTeams() {
@@ -62,5 +72,29 @@ public class BoxResponseDTO {
 
     public void setCreated_by(String created_by) {
         this.created_by = created_by;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

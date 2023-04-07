@@ -29,6 +29,8 @@ public class BoxService {
     public BoxRequestDTO save(BoxRequestDTO boxRequestDTO) {
         Box box = new Box();
         box.setCapacity(boxRequestDTO.getCapacity());
+        box.setLatitude(boxRequestDTO.getLatitude());
+        box.setLongitude(boxRequestDTO.getLongitude());
         box.setName(boxRequestDTO.getName());
         box.setCreated_by("Admin");
         boxRespository.save(box);
@@ -54,6 +56,12 @@ public class BoxService {
             }
             if(boxRequestDTO.getName()!=null){
                 box.setName(boxRequestDTO.getName());
+            }
+            if(boxRequestDTO.getLatitude()!=null){
+                box.setLatitude(boxRequestDTO.getLatitude());
+            }
+            if(boxRequestDTO.getLongitude()!=null){
+                box.setLongitude(boxRequestDTO.getLongitude());
             }
 
             BoxResponseDTO boxResponseDTO = new BoxResponseDTO(boxRespository.save(box));
